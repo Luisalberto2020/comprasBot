@@ -16,7 +16,7 @@ bot = commands.Bot(command_prefix='!', intents=intents)
 
 bot.remove_command('help')
 
-@tasks.loop(time=time(17, 30, tzinfo=ZoneInfo("Europe/Madrid")))
+@tasks.loop(time=time(17, 50, tzinfo=ZoneInfo("Europe/Madrid")))
 async def daily_task():
     user = await bot.fetch_user(int(os.getenv('DISCORD_USER_ID')))
     scraper = WebScraper()
