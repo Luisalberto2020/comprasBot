@@ -16,7 +16,7 @@ bot = commands.Bot(command_prefix='!', intents=intents)
 
 bot.remove_command('help')
 
-@tasks.loop(time=time(18, 37, tzinfo=ZoneInfo("Europe/Madrid")))
+@tasks.loop(time=time(11, 0, tzinfo=ZoneInfo("Europe/Madrid")))
 async def daily_task():
     user = await bot.fetch_user(int(os.getenv('DISCORD_USER_ID')))
     scraper = WebScraper()
@@ -29,5 +29,7 @@ async def on_ready():
     if not daily_task.is_running():
         daily_task.start()
     print(f'Logged in as {bot.user}')
+    status = discord.Status.online
+    await bot.change_presence(status=status)
 
 bot.run(os.getenv('DISCORD_TOKEN'))
