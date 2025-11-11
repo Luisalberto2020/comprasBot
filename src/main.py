@@ -8,9 +8,10 @@ from WebScrapping import WebScraper
 import asyncio
 
 
+
 load_dotenv()
 
-intents = discord.Intents.default()  # Enable the message content intent
+
 
 bot = commands.Bot(command_prefix='!', intents=intents)
 
