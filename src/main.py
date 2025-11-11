@@ -34,4 +34,4 @@ async def on_ready():
     status = discord.Status.online
     await bot.change_presence(status=status)
 
-bot.run(os.getenv('DISCORD_TOKEN'))
+bot.run(str(os.getenv('DISCORD_TOKEN')))
