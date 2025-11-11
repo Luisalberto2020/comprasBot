@@ -19,8 +19,9 @@ bot.remove_command('help')
 @tasks.loop(time=time(11, 0, tzinfo=ZoneInfo("Europe/Madrid")))
 async def daily_task():
     user = await bot.fetch_user(int(os.getenv('DISCORD_USER_ID')))
+    user2 = await bot.fetch_user(int(os.getenv('DISCORD_USER_ID2')))
     scraper = WebScraper()
-    await scraper.scrape_fenixsim(lambda message: asyncio.create_task(user.send(message)))
+    await scraper.scrape_fenixsim(lambda message: asyncio.create_task(user.send(message), user2.send(message)))
 
    
 
