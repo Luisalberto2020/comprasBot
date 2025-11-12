@@ -22,7 +22,10 @@ async def daily_task():
     user = await bot.fetch_user(int(os.getenv('DISCORD_USER_ID')))
     user2 = await bot.fetch_user(int(os.getenv('DISCORD_USER_ID2')))
     scraper = WebScraper()
-    await scraper.scrape_fenixsim(lambda message: asyncio.create_task(user.send(message), user2.send(message)))
+    await scraper.scrape_fenixsim(lambda message: lambda message: (
+        asyncio.create_task(user.send(message)),
+        asyncio.create_task(user2.send(message))
+    ))
 
    
 
