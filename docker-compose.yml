@@ -7,3 +7,4 @@ services:
     environment:
       - DISCORD_TOKEN=${DISCORD_TOKEN}
       - DISCORD_USER_ID=${DISCORD_USER_ID}
+      - DISCORD_USER_ID2=${DISCORD_USER_ID2}

@@ -17,12 +17,12 @@ bot = commands.Bot(command_prefix='!', intents=intents)
 
 bot.remove_command('help')
 
-@tasks.loop(time=time(11, 0, tzinfo=ZoneInfo("Europe/Madrid")))
+@tasks.loop(time=time(11,00, tzinfo=ZoneInfo("Europe/Madrid")))
 async def daily_task():
     user = await bot.fetch_user(int(os.getenv('DISCORD_USER_ID')))
     user2 = await bot.fetch_user(int(os.getenv('DISCORD_USER_ID2')))
     scraper = WebScraper()
-    await scraper.scrape_fenixsim(lambda message: lambda message: (
+    await scraper.scrape_fenixsim(lambda message:  (
         asyncio.create_task(user.send(message)),
         asyncio.create_task(user2.send(message))
     ))
