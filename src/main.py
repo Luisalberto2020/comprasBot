@@ -23,14 +23,21 @@ async def daily_task():
         asyncio.create_task(user2.send(message))
     ))
 
+#shutdown afer 1 minute
+async def shutdown():
+    await asyncio.sleep(60)
+    await bot.close()
+
+
 
 
 @bot.event
 async def on_ready():
     await daily_task()
     print(f'Logged in as {bot.user}')
-    print("Daily task finished. Shutting down...")
-    await bot.close()
+    asyncio.create_task(shutdown())
+    
+    
     
 
 bot.run(str(os.getenv('DISCORD_TOKEN')))
