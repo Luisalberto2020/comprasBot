@@ -3,7 +3,6 @@ services:
   comprasbot:
     build: .
     container_name: comprasbot
-    restart: unless-stopped
     environment:
       - DISCORD_TOKEN=${DISCORD_TOKEN}
       - DISCORD_USER_ID=${DISCORD_USER_ID}
