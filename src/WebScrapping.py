@@ -3,6 +3,7 @@ import asyncio
 from playwright.async_api import async_playwright
 import time
 import random
+import re
 
 
 
@@ -114,13 +115,7 @@ class WebScraper:
                 print("🌐 Cargando página...")
                 await page.goto("https://www.flightsimlabs.com/index.php/a321neo/", timeout=60000)
 
-                 # Esperar a que aparezca contenido clave (precios)
-                print("⏳ Esperando a que cargue el contenido dinámico...")
-                await page.wait_for_function(
-                    "document.body.innerText.includes('£')",
-                    timeout=30000
-                )
-                print("⏳ Espera con exito")
+              
                 #click onn the botton
                 await page.click('a.uagb-modal-button-link.wp-block-button__link.uagb-modal-trigger')
 
@@ -128,9 +123,11 @@ class WebScraper:
                 soup = BeautifulSoup(content, 'html.parser')
                 button = soup.find('button', id='checkout-btn')
                 text = button.text.strip()
-                price = re.search(r'\$?(\d+(?:\.\d+)?)', text)
+                print(text)
+                match = re.search(r'\$?(\d+(?:\.\d+)?)', text)
+                price = float(match.group().replace("$",""))
 
-                euro_price = (price * 0.9) * 1.21
+                euro_price = ( float(price) * 0.9) * 1.21
                 message = f"FSLab A321NEO Price: {price}$ | {euro_price:.2f}€ aproximately" 
                 callback(message)
             except Exception as e:
