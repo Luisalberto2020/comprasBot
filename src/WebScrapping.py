@@ -120,6 +120,7 @@ class WebScraper:
                     "document.body.innerText.includes('£')",
                     timeout=30000
                 )
+                print("⏳ Espera con exito")
                 #click onn the botton
                 await page.click('a.uagb-modal-button-link.wp-block-button__link.uagb-modal-trigger')
 
