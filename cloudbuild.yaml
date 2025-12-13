@@ -28,3 +28,5 @@ steps:
 # Imágenes que se guardarán en el historial de compilación
 images:
   - 'gcr.io/$PROJECT_ID/comprasbot:$COMMIT_SHA'
+options:
+  logging: CLOUD_LOGGING_ONLY
