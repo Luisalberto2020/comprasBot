@@ -22,7 +22,15 @@ async def daily_task():
         asyncio.create_task(user.send(message)),
         asyncio.create_task(user2.send(message))
     ))
-
+    await scraper.scrape_fslab(lambda message:  (
+        asyncio.create_task(user.send(message)),
+        asyncio.create_task(user2.send(message))
+    ), "https://www.flightsimlabs.com/index.php/a321-ceo-msfs/")
+    await scraper.scrape_fslab(lambda message:  (
+        asyncio.create_task(user.send(message)),
+        asyncio.create_task(user2.send(message))
+    ), "https://www.flightsimlabs.com/index.php/a321neo/")
+    
 #shutdown afer 1 minute
 async def shutdown():
     await asyncio.sleep(60)

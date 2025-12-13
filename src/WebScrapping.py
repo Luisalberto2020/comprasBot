@@ -67,7 +67,8 @@ class WebScraper:
                 if card:
                     plane_prize = card.find(
                         'div', class_=['text-lg', 'text-gray-500', 'font-semibold', 'mb-2']).text.strip()
-                    message = f"Fenix A320 Plane Price: {plane_prize}"
+                    euro_price = float(plane_prize.replace("£","")) * 1.21
+                    message = f"Fenix A320 Plane Price: {plane_prize} | {euro_price:.2f}€ approximately"
                     callback(message)
                    
                 else:
@@ -79,7 +80,7 @@ class WebScraper:
             finally:
                 await browser.close()
 
-    async def scrape_fslab(self, callback):
+    async def scrape_fslab(self, callback, url:str):
         print("🚀 Iniciando scraping de flightsimlabs.com a321 con Playwright...")
         async with async_playwright() as p:
             browser = await p.chromium.launch(
@@ -113,7 +114,9 @@ class WebScraper:
                 time.sleep(delay)
 
                 print("🌐 Cargando página...")
-                await page.goto("https://www.flightsimlabs.com/index.php/a321neo/", timeout=60000)
+                await page.goto(url, timeout=60000)
+                #https://www.flightsimlabs.com/index.php/a321-ceo-msfs/
+                #https://www.flightsimlabs.com/index.php/a321neo/
 
               
                 #click onn the botton
@@ -128,7 +131,8 @@ class WebScraper:
                 price = float(match.group().replace("$",""))
 
                 euro_price = ( float(price) * 0.9) * 1.21
-                message = f"FSLab A321NEO Price: {price}$ | {euro_price:.2f}€ aproximately" 
+                model = url.split("/")[-2]
+                message = f"FSLab {model} Price: {price}$ | {euro_price:.2f}€ aproximately" 
                 callback(message)
             except Exception as e:
                 print(f"❌ Error durante el scraping: {e}")
